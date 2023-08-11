@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_print, unused_local_variable
+// ignore_for_file: file_names, avoid_print, unused_local_variable, prefer_const_constructors, prefer_final_fields, no_leading_underscores_for_local_identifiers
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -23,9 +23,13 @@ class _HomeState extends State<Home> {
   String localidade = '';
   String uf = '';
 
-  _recuperarCep() async {
+  TextEditingController _controllercepInserido = TextEditingController();
 
-    String url = 'https://viacep.com.br/ws/83602600/json/';
+  _recuperarCep() async {
+    
+    var _cepInserido = _controllercepInserido.text;
+
+    String url = 'https://viacep.com.br/ws/$_cepInserido/json/';
 
     print(url.toString());
     
@@ -69,9 +73,18 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.center,  
           crossAxisAlignment: CrossAxisAlignment.center,      
           children: [
-            ElevatedButton(
-              onPressed: _recuperarCep, 
-              child: const Text('Clique aqui')),
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Insira o CEP'
+              ),
+              controller: _controllercepInserido ,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top:20),
+              child: ElevatedButton(
+                onPressed: _recuperarCep, 
+                child: const Text('Clique aqui')),
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 15.0),
               child: Text('CEP: $cep'),
@@ -90,7 +103,7 @@ class _HomeState extends State<Home> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 15.0),
-              child: Text('Localidade: $localidade'),            ),
+              child: Text('Localidade: $localidade')),
             Padding(
               padding: const EdgeInsets.only(top: 15.0),
               child: Text('UF: $uf'),
