@@ -26,7 +26,7 @@ class _HomeState extends State<Home> {
   TextEditingController _controllercepInserido = TextEditingController();
 
   _recuperarCep() async {
-    
+
     var _cepInserido = _controllercepInserido.text;
 
     String url = 'https://viacep.com.br/ws/$_cepInserido/json/';
@@ -75,7 +75,7 @@ class _HomeState extends State<Home> {
           children: [
             TextField(
               decoration: InputDecoration(
-                labelText: 'Insira o CEP'
+                labelText: 'Insira o CEP, ex.: 83602000, sem usar traço (-)'
               ),
               controller: _controllercepInserido ,
             ),
